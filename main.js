@@ -108,6 +108,10 @@ export const fillCustomerTypeSelector = (select_element) => {
         option_el.value = type;
         option_el.text = `${type.charAt(0).toUpperCase()}${type.slice(1)}`;
 
+        if (option_el.value === Cookies.get(COOKIE_KEY)) {
+            option_el.selected = true;
+        }
+
         select_el.appendChild(option_el);
     }
 };
