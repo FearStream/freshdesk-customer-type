@@ -2,24 +2,24 @@ import Cookies from 'https://esm.run/js-cookie@3.0.5';
 import ENUM from 'https://esm.run/@novaras/js-enum@1.0.3';
 
 /** The possible customer types */
-const CUSTOMER_TYPES = ENUM({
+export const CUSTOMER_TYPES = ENUM({
     BROADCASTER: 'broadcaster',
     PODCASTER: 'podcaster'
 });
 
 /** The customer type as given in the URL search params. */
-const PARAM_TYPE = (() => {
+export const PARAM_TYPE = (() => {
     const entry = [...(new URL(window.location.href)).searchParams].find(sp => sp[0] === 'type');
     return entry && entry[1];
 })();
 
-const COOKIE_KEY = 'customer_type';
+export const COOKIE_KEY = 'customer_type';
 /**
     @type string
     The customer type as stored in the cookie.
     If the cookie doesn't exist, it will be set to `PARAM_TYPE` or `CUSTOMER_TYPES.BROADCASTER`
 */
-const COOKIE_TYPE = (() => {
+export const COOKIE_TYPE = (() => {
     const cookie_type = Cookies.get(COOKIE_KEY);
 
     // if no cookie exists, set the cookie
@@ -34,7 +34,7 @@ const COOKIE_TYPE = (() => {
 })();
 
 /** The resolved customer type. */
-const CUSTOMER_TYPE = PARAM_TYPE ?? COOKIE_TYPE;
+export const CUSTOMER_TYPE = PARAM_TYPE ?? COOKIE_TYPE;
 
 /**
  * Gets the category data for the given customer type, or the type held in `CUSTOMER_TYPE`.
@@ -43,7 +43,7 @@ const CUSTOMER_TYPE = PARAM_TYPE ?? COOKIE_TYPE;
  *
  * @param { string } [customer_type]
  */
-const getCategoriesData = (customer_type = CUSTOMER_TYPE) => {
+export const getCategoriesData = (customer_type = CUSTOMER_TYPE) => {
     const container = document.getElementById("all-articles");
     const data = [];
 
