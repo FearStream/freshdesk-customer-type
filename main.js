@@ -78,3 +78,36 @@ export const getCategoriesData = (customer_type = CUSTOMER_TYPE, data_el) => {
 
     return data;
 };
+
+/**
+ * Fills the 'customer type selector', which is some `HTMLSelectElement`, either supplied or
+ * searched by id `'customer-type-selection'`. For each type in `CUSTOMER_TYPES`, creates a
+ * `HTMLOptionElement` for that type and inserts it into the selector.
+ * 
+ * Upon the select element firing the `'change'` event, sets the customer type cookie to the selected
+ * value, and reloads the page.
+ * 
+ * @param { HTMLSelectElement } [select_element]
+ */
+export const fillCustomerTypeSelector = (select_element) => {
+    /** @type HTMLSelectElement */
+    const select_el = select_element ?? document.getElementById("customer-type-selection");
+
+    if (!select_el) throw new Error("Could not find <select> to fill with customer types!");
+
+    // the change listener; sets the cookie and reloads the page
+    select_el.addEventListener("change", (ev) => {
+        Cookies.set(COOKIE_KEY, ev.target.value);
+        window.location.reload();
+    });
+
+    // here we add an option element for each customer type
+    // the values are the types, and the text content is the same but capitalised
+    for (const type of Object.values(CUSTOMER_TYPES)) {
+        const option_el = document.createElement("option");
+        option_el.value = type;
+        option_el.text = `${type.charAt(0).toUpperCase()}${type.slice(1)}`;
+
+        select_el.appendChild(option_el);
+    }
+};
