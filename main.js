@@ -47,6 +47,8 @@ export const getCategoriesData = (customer_type = CUSTOMER_TYPE) => {
     const container = document.getElementById("all-articles");
     const data = [];
 
+    if (!container) throw new Error("Could not find required DOM element `#all-articles`");
+
     for (const cat_el of [...container.children]) {
         const cat = { ...cat_el.dataset, folders: [] };
         for (const folder_el of [...cat_el.children]) {
