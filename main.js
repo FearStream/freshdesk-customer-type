@@ -43,11 +43,11 @@ export const CUSTOMER_TYPE = PARAM_TYPE ?? COOKIE_TYPE;
  *
  * @param { string } [customer_type]
  */
-export const getCategoriesData = (customer_type = CUSTOMER_TYPE) => {
-    const container = document.getElementById("all-articles");
+export const getCategoriesData = (customer_type = CUSTOMER_TYPE, data_el) => {
+    const container = data_el ?? document.getElementById("all-articles");
     const data = [];
 
-    if (!container) throw new Error("Could not find required DOM element `#all-articles`");
+    if (!container) throw new Error("Could not find DOM element to inspect for customer data!");
 
     for (const cat_el of [...container.children]) {
         const cat = { ...cat_el.dataset, folders: [] };
