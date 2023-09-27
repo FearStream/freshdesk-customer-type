@@ -54,7 +54,7 @@ export const getCategoriesData = (customer_type = CUSTOMER_TYPE, data_el) => {
         for (const folder_el of [...cat_el.children]) {
             const folder = { ...folder_el.dataset, articles: [] };
             for (const article_el of [...folder_el.children]) {
-                const article = { ...article_el.dataset, tags: article_el.dataset.tags.split().filter(tag => tag.length) };
+                const article = { ...article_el.dataset, tags: article_el.dataset.tags.split(/\s/).filter(tag => tag.length) };
                 folder.articles.push(article);
             }
             const customer_articles = folder.articles.filter(article => article.tags.includes(customer_type));
