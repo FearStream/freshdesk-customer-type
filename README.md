@@ -14,21 +14,17 @@ This function grabs all information for the portal and works it to find data rel
 <div id="all-articles">
     {% for category in portal.solution_categories %}
         <div data-id="{{ category.id }}" data-name="{{ category.name }}">
-            {% if category.folders_count %}
-                {% for folder in category.folders %}
-                    <div data-id="{{ folder.id }}" data-name="{{ folder.name }}">
-                        {% if folder.articles_count > 0 %}
-                            {% for article in folder.articles %}
-                                <div style="width: 0; height: 0; display: none;"
-                                        data-id="{{ article.id }}"
-                                        data-title="{{ article.title }}"
-                                        data-tags="{{ article.tags | map: 'name' | join }}"
-                                ></div>
-                            {% endfor %}
-                        {% endif %}
-                    </div>
-                {% endfor %}
-            {% endif %}
+            {% for folder in category.folders %}
+                <div data-id="{{ folder.id }}" data-name="{{ folder.name }}">
+                    {% for article in folder.articles %}
+                        <div style="width: 0; height: 0; display: none;"
+                             data-id="{{ article.id }}"
+                             data-title="{{ article.title }}"
+                             data-tags="{{ article.tags | map: 'name' | join }}"
+                        ></div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
         </div>
     {% endfor %}
 </div>
